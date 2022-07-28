@@ -154,6 +154,13 @@ public class PlayerController : MonoBehaviour
         {
             _lr.positionCount = 0;
         }
+
+        // Смерть
+        if (newState == State.Dead)
+        {
+            Destroy(gameObject);
+            GameManager.instance.ReloadScene();
+        }
     }
     #endregion
 
@@ -180,6 +187,14 @@ public class PlayerController : MonoBehaviour
         _hookEnd.transform.localPosition = transform.forward * hookshotMaxRange;
 
         _lr.positionCount = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Death"))
+        {
+            ChangeState(State.Dead);
+        }
     }
 
     void UpdateParticleTransform()
@@ -306,7 +321,7 @@ public class PlayerController : MonoBehaviour
                 // Запуск
                 currentJumpForce += minJumpForce;
                 _rb.isKinematic = false;
-                _rb.AddForce((transform.up + transform.forward).normalized * currentJumpForce, ForceMode.Impulse);
+                _rb.AddForce((transform.up/3 + transform.forward).normalized * currentJumpForce, ForceMode.Impulse);
                 currentJumpForce = 0f;
 
                 ChangeState(State.Flying);
@@ -530,4 +545,5 @@ public class PlayerController : MonoBehaviour
         _lr.SetPosition(0, transform.position);
         _lr.SetPosition(1, _hookshotInstance.transform.position);
     }
+
 }

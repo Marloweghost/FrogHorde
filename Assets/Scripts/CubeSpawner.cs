@@ -27,8 +27,8 @@ public class CubeSpawner : MonoBehaviour
     void SpawnCube()
     {
         GameObject cube = Instantiate(cubePrefab, transform.position, Quaternion.identity);
-        float randomScaleAxis = Random.Range(0.8f, 1.2f);
+        float randomScaleAxis = Random.Range(0.5f, 2f);
         cube.transform.localScale = new Vector3(randomScaleAxis, randomScaleAxis, randomScaleAxis);
-        cube.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
+        cube.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.VelocityChange);
     }
 }

@@ -13,8 +13,6 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform _target;
 
-    private Transform _modifiedTarget;
-
     [SerializeField]
     private float _distanceFromTarget = 3.0f;
     public float minDistance = 1f;
@@ -36,6 +34,8 @@ public class CameraController : MonoBehaviour
     private bool _isAiming = false;
     void Update()
     {
+        if (!_target) return;
+
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
 
